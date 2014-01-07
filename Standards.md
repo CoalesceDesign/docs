@@ -1,4 +1,4 @@
-The Viget standards for writing CSS, HTML, and JS. This document defines a uniform approach to writing code across all Viget projects.
+The Coalesce standards for writing CSS, HTML, and JS. This document defines a uniform approach to writing code across all Coalesce projects.
 
 _These are not merely guidelines_ — if you disagree with a standard, take it up with the group, but until the standard is revised it should be followed on all your Viget work.
 
@@ -44,14 +44,14 @@ Use double quotes in HTML, single quotes everywhere else.
 
 ```
 RIGHT
-<html class=”lt-ie7”>
-var html = '<a href=”#”>';
+<html class="lt-ie7">
+var html = '<a href="#">';
 background-image: url('image.png');
 
 WRONG
 <html class='lt-ie7'>
-var html = “<a href='#'>”;
-background-image: url(“image.png”);
+var html = "<a href='#'>";
+background-image: url("image.png");
 ```
 
 <hr>
@@ -196,12 +196,12 @@ Close all tags. Lowercase element names. Don't use trailing slashes for self-clo
 
 ```
 RIGHT
-<p class=”intro”>Text goes here.</p>
-<input type=”checkbox” checked>
+<p class="intro">Text goes here.</p>
+<input type="checkbox" checked>
 
 WRONG
-<P class=”Intro”>Text goes here.
-<input type=”checkbox” checked=”checked” />
+<P class="Intro">Text goes here.
+<input type="checkbox" checked="checked" />
 ```
 
 <hr>
@@ -211,12 +211,12 @@ IDs/class names are lowercase, and they do not contain underscores.
 
 ```
 RIGHT
-<p id=”intro-text”>Text goes here.</p>
-<img class=”header-highlighted-image” src=”image.jpg”>
+<p id="intro-text">Text goes here.</p>
+<img class="header-highlighted-image" src="image.jpg">
 
 WRONG
-<P class=”Intro_text”>Text goes here.
-<img src=”image.jpg”>
+<P class="Intro_text">Text goes here.
+<img src="image.jpg">
 ```
 
 <hr>
@@ -225,71 +225,39 @@ WRONG
 When HTML tags get too long, their attributes are broken out and indented. In this case, the closing caret is on its own line, at the original indentation level.
 ```
 RIGHT
-<div class=”products”>
-	<div class=”product”>
-		<a href=“http://www.amazon.ca/gp/product/B005SH65UO/r_ri_gw...
-class=”track-link product-link highlighted product-link”
-data-to-track=”Product,Click,Frozen Planet”
+<div class="products">
+	<div class="product">
+		<a href="http://www.amazon.ca/gp/product/B005SH65UO/r_ri_gw...
+class="track-link product-link highlighted product-link"
+data-to-track="Product,Click,Frozen Planet"
 >
 	</div>
 </div>
 
 WRONG
-<div class=”products”><div class=”product”>
-		<a href=“http://www.amazon.ca/gp/product/B005SH65UO/r_ri_gw... class=”track-link product-link highlighted product-link”
-data-to-track=”Product,Click,Frozen Planet”>
+<div class="products"><div class="product">
+		<a href="http://www.amazon.ca/gp/product/B005SH65UO/r_ri_gw... class="track-link product-link highlighted product-link"
+data-to-track="Product,Click,Frozen Planet">
 </div></div>
 ```
 
 <hr>
 
 ### Server-side Tags
-Wrapping PHP or ERB tags behave like block-level code, in that their contents are indented.
+Keep markup out of PHP echo statements. Multiline PHP blocks should have their start and end functions on separate lines, with code indented one additional tab level between them.
 
 ```
 RIGHT
-<div class=”products”>
-<ul>
-<% products.each do |product| %>
-	<li><%= product.name %></li>
-<% end %>
+<ul class="products">
+	<?php foreach($products as $product): ?>
+		<li><?php echo $product['name']; ?></li>
+	<?php endforeach; ?>
 </ul>
-</div>
 
 WRONG
-<div class=”products”>
-<ul>
-<% products.each do |product| %>
-	<li><%= product.name %></li>
-<% end %>
-</ul>
-</div>
-
-<div class=”products”>
-<ul>
-<% products.each do |product| %>
-<li><%= product.name %></li>
-<% end %>
-</ul>
-</div>
-```
-
-Multiline PHP or ERB blocks should have their start and end markers on separate lines, with code indented one additional tab level.
-
-```
-RIGHT
-<div class=”products”>
-<?php
-	foreach($products as $product) {
-echo $product['name'];
-}
-?>
-</div>
-
-WRONG
-<div class=”products”>
+<div class="products">
 <?php foreach($products as $product) {
-echo $product['name'];
+	echo '<li>'.$product['name'].'</li>';
 } ?>
 </div>
 ```
@@ -315,13 +283,27 @@ Use Sass, Use the SCSS syntax.
 
 <hr>
 
+### CSS Selector Names
+Try to always use classes if possible. Shorter the better. Try to use single words - no more than 3 words is best. However, clarity is much more important than being overly concise.
+
+IDs are written in CamelCase:
+```
+#MainWrapper
+```
+Classes are written in CamelBack:
+```
+.productName
+```
+
+<hr>
+
 ### CSS Formatting
 Each CSS selector and property is on its own line. If an property has comma-separated values and becomes too long, it can be broken out into multiple lines, with the first value on a new line.
 
 ```
 RIGHT
-.main-content h2,
-.main-content h3 {
+.mainContent h2,
+.mainContent h3 {
 	@include background(
 		linear-gradient(
 			left,
@@ -336,7 +318,7 @@ RIGHT
 }
 
 WRONG
-.main-content h2, .main-content h3 {
+.mainContent h2, .mainContent h3 {
 	@include background(linear-gradient(left, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 1) 100%));
 	box-shadow: 0 0 2px rgba(0,0,0,0.3),
 inset 0 0 2px rgba(0,0,0,0.3);
@@ -344,7 +326,7 @@ inset 0 0 2px rgba(0,0,0,0.3);
 }
 
 NOT EVEN CLOSE
-.main-content h2, .main-content h3 { box-shadow: 0 0 2px rgba(0,0,0,0.3), inset 0 0 2px rgba(0,0,0,0.3); font-size: 20px; }
+.mainContent h2, .mainContent h3 { box-shadow: 0 0 2px rgba(0,0,0,0.3), inset 0 0 2px rgba(0,0,0,0.3); font-size: 20px; }
 ```
 
 <hr>
@@ -352,10 +334,10 @@ NOT EVEN CLOSE
 # JavaScript
 
 ### Var and method names
-All JavaScript var names are camelCase. The only exception is any var that's used as a class/constructor (which are TitleCased).
+All JavaScript var names are formatted as camelBack. The only exception is any var that's used as a class/constructor (which are TitleCased).
 jQuery/Zepto objects are always preceded with $.
-Use “self” to reference or minify “this” when necessary.
-Use “init” to define the first method called on an object.
+Use "self" to reference or minify "this" when necessary.
+Use "init" to define the first method called on an object.
 
 ```
 RIGHT
@@ -447,17 +429,14 @@ Use linebreaks, unless you have a single-property array or object. Put a space a
 RIGHT
 {
 	year: 1970,
-
 	month: 'January'
 }
 arr.push({
 	year: 1970,
-
 	month: 'January'
 });
 [
 	'January',
-
 	'February'
 ]
 {year: 1970}
@@ -476,7 +455,7 @@ WRONG
 
 <hr>
 
-### “Optional” Syntax
+### "Optional" Syntax
 Although semicolons and braces can be parser-optional, we use them.
 Semicolons follow a statement.
 Conditional blocks go on a new line.
@@ -520,7 +499,7 @@ timer[isTimerReady ? 'start' : 'wait']();
 
 ### Strictness
 === is preferred to == when applicable.
-Window properties (not methods) are prefixed with “window”.
+Window properties (not methods) are prefixed with "window".
 parseInt() always gets a second argument of 10 (unless you really do want to parse an octal or a binary number).
 
 <hr>
@@ -538,11 +517,11 @@ RIGHT
 <script>
 	doStuff();
 </script>
-<script src=”dostuff.js”></script>
+<script src="dostuff.js"></script>
 
 WRONG
-<script src=”dostuff.js” language=”javascript” type=”text/javascript”></script>
-<script language=”javascript” type=”text/javascript”>
+<script src="dostuff.js" language="javascript" type="text/javascript"></script>
+<script language="javascript" type="text/javascript">
 	<!--
 		doStuff();
 	-->
