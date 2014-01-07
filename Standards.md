@@ -290,7 +290,7 @@ IDs are written in CamelCase:
 ```
 #MainWrapper
 ```
-Classes are written in CamelBack:
+Classes are written in camelBack:
 ```
 .productName
 ```
